@@ -11,3 +11,8 @@ final class ClientTimer implements Timer {
 }
 
 // TODO: add more timers here ...
+
+@Data
+final class ServerTimer implements Timer {
+    static final int SERVER_RETRY_MILLIS = 100;
+}
