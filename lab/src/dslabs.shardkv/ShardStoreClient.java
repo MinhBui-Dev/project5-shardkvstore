@@ -59,6 +59,7 @@ public class ShardStoreClient extends ShardStoreNode implements Client {
         this.command = command;
         this.result = null;
         if (currentConfig != null) {
+            timeout = 0;
             requestCommand();
         }
     }
@@ -108,6 +109,7 @@ public class ShardStoreClient extends ShardStoreNode implements Client {
             currentConfig = (ShardConfig) m.result();
             gettingNewConfig = false;
             if (command != null) {
+                timeout = 0;
                 requestCommand();
             }
         }
@@ -162,7 +164,6 @@ public class ShardStoreClient extends ShardStoreNode implements Client {
         // TODO: handle client request timeout ...
         if (gettingNewConfig || timeout >= 3) {
             getNewConfig();
-            timeout = 0;
         } else if (command != null) {
             /*if (this.address().toString().equals("client3")) {
                 System.out.println("Client Request: " + command + " and config: " + currentConfig + " and sequence number: " + sequenceNumber);
